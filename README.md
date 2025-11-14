@@ -1,96 +1,142 @@
-# crispy-enigma
+# Crispy Enigma — Praxis Engine
 
-A personal **Praxis Engine** — a deterministic backend for structured self-reflection and daily execution, powered by GPT as a conversational interface.
+Crispy Enigma is a small workflow engine that powers my personal Praxis system.
+The structure is simple:
+
+- A **request** is JSON (`workflow` + `context`)
+- The engine (`run.py`) evaluates it
+- The output is deterministic JSON (DayScript or ReflectionLog)
+- A custom GPT acts as the conversational interface
+
+This repo is the long-term home for all Praxis logic, tooling, and workflows.
 
 ---
 
-## 🧱 v1.0.0 – Deterministic Baseline
-**Released:** 2025-11-14  
-**Tag:** `v1.0.0`
+## 🔧 v1.0 — Deterministic Baseline
 
-### Features
-- `run.py` executes fixed deterministic workflows.  
-- `praxis-spec.yaml` defines guard conditions and outputs.  
-- `schema.json` enforces structural validation.  
-- Produces **DayScript** and **ReflectionLog** JSONs.
+The initial implementation used:
 
-### Example Run
-```bash
-python run.py request.morning.json
-Output:
+- `praxis-spec.yaml` for static structure
+- A fixed `run.py` that produced **DayScript** or **ReflectionLog**
+- Simple hard-coded logic with no customization
 
-json
-Copy code
-{
-  "type": "DayScript",
-  "north_star": "Progress pipeline + protect back",
-  "actions": [
-    "submit documents by 12:00",
-    "confirm ID contingency",
-    "TRX core circuit"
-  ]
-}
+This version established:
+- Shape of the JSON outputs  
+- Basic inputs  
+- Foundation for GPT integration  
+
+Tagged as **v1.0.0**.
+
+---
+
+## 🚧 v1.1 — Context-Aware Engine (Work in Progress)
+
+The current feature branch (`feature/v1.1-lisp-engine`) focuses on:
+
+- Replacing the DSL/Lisp experiment with **clean, readable Python**
+- A context-aware engine that:
+  - Responds to `energy_score`
+  - Derives actions from user-provided commitments
+  - Allows overrides for north star, counters, risks, deltas, etc.
+  - Computes an alignment score based on completed actions
+
+The v1.1 engine produces the same output structure as v1, but is **smarter and simpler**.
+
+When complete, this will be merged into `main` and tagged as **v1.1.0**.
+
+---
+
+## 📁 Project Structure
 ```
-
-🚧 v1.1.0 – Lisp DSL Engine (in progress)
-Branch: feature/v1.1-lisp-engine
-
-Goal
-Replace hard-coded logic with a small Lisp interpreter and workflow DSL.
-
-Planned Additions
-praxis.lisp defining workflows in S-expression syntax
-
-Mini Lisp evaluator inside run.py
-
-Support for contextual variables (energy, commitments, actions_done)
-
-Deterministic helper functions: (plan), (schedule), (align), etc.
-
-Backward compatibility: same JSON outputs as v1
-
-Example Workflow (MorningPraxis)
-```
-lisp
-Copy code
-(workflow MorningPraxis
-  (if (>= (get energy_score) 3)
-      (output DayScript (map north_star "Progress pipeline + protect back"))
-      (output DayScript (map north_star "Recover + one leverage task"))))
-```
-	  
-🗂️ Structure
-graphql
-Copy code
 crispy-enigma/
 │
-├─ run.py              # Engine entrypoint
-├─ praxis-spec.yaml    # v1.0 config
-├─ schema.json         # Spec validator
-├─ praxis.lisp         # v1.1 DSL workflows
-├─ requests/           # Example JSON requests
-└─ logs/               # Optional run history
-🧭 Usage
+├── run.py # The active engine (context-aware)
+├── praxis.lisp # Design sketches (not currently executed)
+├── request.morning.json
+├── request.evening.json
+├── README.md
+└── CHANGELOG.md
+
 ```
-bash
-Copy code
-# Activate environment
+
+
+---
+
+## 🧪 Running Locally
+
+Create your virtual environment (done once):
+
+```powershell
+python -m venv .venv
 .\.venv\Scripts\activate
+pip install -r requirements.txt
+Run any request:
 
-# Run a request
+powershell
+Copy code
 python run.py request.morning.json
+python run.py request.evening.json
+Or send JSON over stdin:
 
-# Tag release
-git tag -a v1.1.0 -m "Lisp DSL engine"
-```
+powershell
+
+echo "{ \"workflow\": \"MorningPraxis\", \"context\": { \"energy_score\": 4 } }" | python run.py```
 
 🔮 Roadmap
- Implement (log …) form for journaling
+Planned directions include:
 
- Add energy-based branching macros
+v1.1: Logging (optional JSONL history)
 
- Integrate GPT interface templates
+v1.2: Reflection heuristics (better deltas + future seed logic)
 
- Add persistence layer (JSONL log per day)
+v1.3: Task weighting / friction scoring
 
- Prepare v1.2 with dynamic planning verbs
+v2.0: Optional mini-DSL (only if it proves useful)
+
+The system evolves strictly based on real usage, not ideology.
+
+🧠 Philosophy
+This repo exists to:
+
+Externalize mental load
+
+Provide structure without constraint
+
+Let GPT act as a natural-language interface
+
+Keep Praxis grounded and forward-moving
+
+It’s intentionally small and pragmatic.
+
+
+---
+
+# ✅ **CHANGELOG.md (starting version)**
+
+```markdown
+# Changelog
+
+All notable changes to this project will be documented here.
+This project follows a simple semantic versioning pattern.
+
+---
+
+## [Unreleased]
+### Added
+- Context-aware engine (v1.1 work in progress)
+- Default actions now derive from commitments
+- Fallback logic when `energy_score < 3`
+- Alignment scoring for EveningPraxis
+- README and project documentation updates
+
+### Changed
+- Removed DSL/Lisp evaluator (postponed for future exploration)
+- Simplified `run.py` for readability and maintainability
+
+---
+
+## [1.0.0] — Baseline Release
+### Added
+- Deterministic `run.py` engine
+- DayScript + ReflectionLog output schema
+- Initial project structure```
