@@ -30,6 +30,7 @@ Copy code
     "TRX core circuit"
   ]
 }
+```
 
 🚧 v1.1.0 – Lisp DSL Engine (in progress)
 Branch: feature/v1.1-lisp-engine
@@ -49,12 +50,14 @@ Deterministic helper functions: (plan), (schedule), (align), etc.
 Backward compatibility: same JSON outputs as v1
 
 Example Workflow (MorningPraxis)
+```
 lisp
 Copy code
 (workflow MorningPraxis
   (if (>= (get energy_score) 3)
       (output DayScript (map north_star "Progress pipeline + protect back"))
       (output DayScript (map north_star "Recover + one leverage task"))))
+```
 	  
 🗂️ Structure
 graphql
@@ -68,6 +71,7 @@ crispy-enigma/
 ├─ requests/           # Example JSON requests
 └─ logs/               # Optional run history
 🧭 Usage
+```
 bash
 Copy code
 # Activate environment
@@ -78,6 +82,7 @@ python run.py request.morning.json
 
 # Tag release
 git tag -a v1.1.0 -m "Lisp DSL engine"
+```
 
 🔮 Roadmap
  Implement (log …) form for journaling
