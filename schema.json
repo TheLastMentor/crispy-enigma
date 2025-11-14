@@ -1,0 +1,11 @@
+{
+  "$id": "praxis.schema.v1",
+  "type": "object",
+  "required": ["type", "version", "workflows", "outputs"],
+  "properties": {
+    "type": { "const": "PraxisConfig" },
+    "version": { "type": "string" },
+    "workflows": { "type": "object" },
+    "outputs": { "type": "object" }
+  }
+}

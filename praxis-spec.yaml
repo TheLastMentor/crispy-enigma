@@ -1,0 +1,22 @@
+version: 1.0.0
+type: PraxisConfig
+
+workflows:
+  MorningPraxis:
+    guard: "energy_score >= 3"
+    fallback:
+      north_star: "Recover + one leverage task"
+      actions: ["Do one small thing"]
+    steps:
+      - decide: single_north_star
+      - plan: { max_actions: 3, include_counters: true }
+      - simulate: friction_points
+
+  EveningPraxis:
+    steps:
+      - replay: actions_vs_intention
+      - extract: { insight: 1, adjustment: 1 }
+
+outputs:
+  DayScript: [north_star, actions, counters, schedule, risks]
+  ReflectionLog: [alignment_score, deltas, lesson, tomorrow_seed]

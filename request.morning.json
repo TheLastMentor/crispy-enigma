@@ -1,0 +1,10 @@
+{
+  "type": "PraxisRequest",
+  "workflow": "MorningPraxis",
+  "context": {
+    "today_date": "2025-11-14",
+    "commitments": ["13:00 union application", "18:00 TRX"],
+    "pain_flags": ["low_back:1"],
+    "energy_score": 4
+  }
+}
