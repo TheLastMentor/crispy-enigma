@@ -80,9 +80,10 @@ Or send JSON over stdin:
 
 powershell
 
-echo "{ \"workflow\": \"MorningPraxis\", \"context\": { \"energy_score\": 4 } }" | python run.py```
+echo "{ \"workflow\": \"MorningPraxis\", \"context\": { \"energy_score\": 4 } }" | python run.py
+```
 
-🔮 Roadmap
+## 🔮 Roadmap
 Planned directions include:
 
 v1.1: Logging (optional JSONL history)
@@ -95,7 +96,7 @@ v2.0: Optional mini-DSL (only if it proves useful)
 
 The system evolves strictly based on real usage, not ideology.
 
-🧠 Philosophy
+## 🧠 Philosophy
 This repo exists to:
 
 Externalize mental load
